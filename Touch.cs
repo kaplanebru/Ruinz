@@ -24,16 +24,12 @@ public class Touch : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            Touched();
+            StartCoroutine(Touched());
             
         }
-
-        
-        
-
     }
 
-    void Touched()
+    IEnumerator Touched()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -55,14 +51,7 @@ public class Touch : MonoBehaviour
                 Debug.Log("counter: " + counter);
                 DebugClicked();
 
-                if(counter>1)
-                {
-                    Compare();
-                    clicked.Clear();
-                    counter = 0;
-                }
-   
-                //yield return new WaitUntil(isClicked);
+                yield return new WaitUntil(ReadyToCompare);
                 //if more than 2 clear list.
 
             }
@@ -70,10 +59,13 @@ public class Touch : MonoBehaviour
         }
     }
 
-    public bool isClicked()
+    public bool ReadyToCompare()
     {
-        if(counter > 0)
+        if(counter > 1)
         {
+            Compare();
+            clicked.Clear();
+            counter = 0;
             return true;
         }
         else
