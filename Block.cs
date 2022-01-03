@@ -8,16 +8,19 @@ public class Block : MonoBehaviour
     Color col;
     public bool isClickable = false;
 
-    
     void Awake()
     {   
         rend = gameObject.GetComponent<MeshRenderer>();
+  
     }
+    
+	
 
     public Block Init(Color col, bool isClickable)
     {
         this.rend.material.color = col;
         this.isClickable = isClickable;
+        //this.clicked = clicked;
         return this;
     }
  
@@ -27,17 +30,16 @@ public class Block : MonoBehaviour
         {
             transform.tag = "clickable";
         }
-      
-        ChangeColor();
+        else
+        {
+            transform.tag = "not clickable";
+        }
+
     }
 
-    void ChangeColor()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            rend.material.color = Color.red;
-            Debug.Log("sPACE");
-        }
-    }
+   
+
+    
+
 
 }

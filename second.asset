@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e4e28fdae339574b8bc567829c23989, type: 3}
-  m_Name: New Block Type
+  m_Name: second
   m_EditorClassIdentifier: 
   blockColor: {r: 0, g: 1, b: 0, a: 1}
   amount: 5
   colorSet:
-  - {r: 0.7924528, g: 0.26464927, b: 0.26464927, a: 0}
-  - {r: 0.18867922, g: 0.034531847, b: 0.034531847, a: 0}
-  - {r: 0.6792453, g: 0.19480239, b: 0.19480239, a: 0}
+  - {r: 0.764151, g: 0.24077961, b: 0.24077961, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0.8207547, g: 0.58381987, b: 0.58381987, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.7264151, g: 0.13294762, b: 0.13294762, a: 0}

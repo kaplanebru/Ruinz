@@ -20,7 +20,7 @@ public class ColumnSpawner : MonoBehaviour
         SpawnBlocks(amount);
         DOTween.Init();
 
-        Debug.Log(baseSize);
+        //Debug.Log(baseSize);
     }
 
     void Update()
