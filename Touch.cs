@@ -39,7 +39,7 @@ public class Touch : MonoBehaviour
 
             if(hit.collider != null && hit.transform.tag == "clickable")
             {   
-                //not clickable
+                
                 //Renderer rend = hit.transform.GetComponent<MeshRenderer>();
 
                 

@@ -21,6 +21,7 @@ public class ColumnSpawner : MonoBehaviour
         SpawnBlocks(amount);
         DOTween.Init();
 
+
         //Debug.Log(baseSize);
     }
 
@@ -36,7 +37,7 @@ public class ColumnSpawner : MonoBehaviour
         {
            SpawnBlock(i, 2f);
         }
-        //columnL[columnL.Count-1].gameObject.GetComponent<Block>().isClickable = true;
+        //columnL[columnL.Count-1].gameObject.GetComponent<Block>().IsClickable = true;
     }
 
 
