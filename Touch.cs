@@ -9,6 +9,7 @@ public class Touch : MonoBehaviour
     bool clickable;
     int counter = 0;
     List <GameObject> clicked = new List<GameObject>();
+    Block block;
 
 
     /*public delegate void OnScale();
@@ -26,8 +27,8 @@ public class Touch : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             StartCoroutine(Touched());
-            
         }
+        
     }
 
     IEnumerator Touched()
@@ -38,7 +39,7 @@ public class Touch : MonoBehaviour
         if(Physics.Raycast(ray, out hit))
         {
 
-            if(hit.collider != null && hit.transform.tag == "clickable")
+            if(hit.collider != null && hit.transform.GetComponent<Block>().IsClickable == true)
             {   
                 
                 //Renderer rend = hit.transform.GetComponent<MeshRenderer>();
@@ -64,6 +65,7 @@ public class Touch : MonoBehaviour
 
         }
     }
+
 
     public bool ReadyToCompare()
     {
@@ -105,6 +107,7 @@ public class Touch : MonoBehaviour
             //List yerine dict yapılabilir.
 
             clicked[0].transform.parent = clicked[1].transform.parent;
+            //clicked[0].tag = "Untagged";
             //clicked[1].transform.parent.GetComponent<ColumnSpawner>().columnList.Add(clicked[0]);
             //OnScaled();
         }

@@ -31,6 +31,7 @@ public class ColumnSpawner : MonoBehaviour
     {
         columnList[columnList.Count-1].gameObject.GetComponent<Block>().IsClickable = true;
         ChildCheck();
+        
     }
 
     /*private void OnEnable() 
@@ -48,7 +49,7 @@ public class ColumnSpawner : MonoBehaviour
         {
            SpawnBlock(i, 2f); //amount-i
         }
-        columnList[columnList.Count-1].gameObject.GetComponent<Block>().IsClickable = true;
+        //columnList[columnList.Count-1].gameObject.GetComponent<Block>().IsClickable = true;
     }
 
 
@@ -93,15 +94,15 @@ public class ColumnSpawner : MonoBehaviour
             var movingBrick = columnList[columnList.Count-1];
             columnList.Remove(movingBrick);
 
-            //if(column.transform.childCount > columnList.Count)
-            //columnList.Add(movingBrick);
         }
         else if(column.transform.childCount > columnList.Count)
         { 
             var moving = GameObject.FindGameObjectWithTag("moving");
             columnList.Add(moving);
+            moving.tag = "Untagged";
         }
     }
-    
+
+
 }
 

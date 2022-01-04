@@ -11,13 +11,15 @@ public class Block : MonoBehaviour
     //[SerializeField] 
     private bool isClickable = false;
 
-    public bool IsClickable { get {return isClickable;} 
+    public bool IsClickable 
+    { 
+        get {return isClickable;} 
         set
         {
-            if(value == true)
+            /*if(value == true)
                 transform.tag = "clickable";
                 //add fx
-            else
+            else*/
             isClickable = value;
         }  
     }
@@ -47,15 +49,7 @@ public class Block : MonoBehaviour
  
     void Update()
     {
-        /*if(IsClickable == true)
-        {
-            transform.tag = "clickable";
-        }
-        else
-        {
-            transform.tag = "not clickable";
-        }*/
-
+    
     }
 
    
