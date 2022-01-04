@@ -39,6 +39,11 @@ public class Block : MonoBehaviour
         //this.colorId
         return this;
     }
+
+    public void DebugYoko()
+    {
+        Debug.Log("Yoko");
+    }
  
     void Update()
     {

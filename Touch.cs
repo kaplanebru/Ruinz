@@ -10,8 +10,9 @@ public class Touch : MonoBehaviour
     int counter = 0;
     List <GameObject> clicked = new List<GameObject>();
 
-    /*public delegate void ClickAction();
-	public static event ClickAction OnClicked;*/
+
+    /*public delegate void OnScale();
+	public static event OnScale OnScaled;*/
     //GameObject[] clicked = new GameObject[1];
  
     void Start() 
@@ -43,11 +44,12 @@ public class Touch : MonoBehaviour
                 //Renderer rend = hit.transform.GetComponent<MeshRenderer>();
 
                 
-                Block hitBlock = hit.transform.GetComponent<Block>();
+                //Block hitBlock = hit.transform.GetComponent<Block>();
                 //hitBlock.Init(Color.red, false, 1);
                 
 
                 clicked.Add(hit.transform.gameObject);
+                clicked[0].tag = "moving";
                 //Debug.Log("clicked: " + clicked.Count);
 
                 counter++;
@@ -84,13 +86,7 @@ public class Touch : MonoBehaviour
   
     void Compare(int counter)
     {
-        if(clicked[0] == clicked[1])
-        {
-            clicked.Remove(clicked[0]);
-            counter--;
-            return;
-        }
-
+        CheckIfSame();
 
         Color[] col = new Color[2];
 
@@ -104,31 +100,27 @@ public class Touch : MonoBehaviour
             
             clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
             
-            //clicked[0].transform.parent.GetComponent<ColumnSpawner>().columnL.Remove(clicked[0]);
+            //clicked[0].transform.parent.GetComponent<ColumnSpawner>().columnList.RemoveAt(0);
+            
             //List yerine dict yapılabilir.
 
-            //clicked[1].transform.parent.GetComponent<ColumnSpawner>().columnL.Add(clicked[0]);
-
             clicked[0].transform.parent = clicked[1].transform.parent;
-            
-
-
-            
-
-            
-            
-             
-            /*
-            List<GameObject> column = clicked[0].transform.parent.GetComponent<ColumnSpawner>().columnL;
-            column.Remove(clicked[0]);
-            Debug.Log("column count: ");
-            //column[column.Count -1].GetComponent<Block>().isClickable = true;
-            */
-
+            //clicked[1].transform.parent.GetComponent<ColumnSpawner>().columnList.Add(clicked[0]);
+            //OnScaled();
         }
         //color id
+
     }
 
+    void CheckIfSame()
+    {
+        if(clicked[0] == clicked[1])
+        {
+            clicked.Remove(clicked[0]);
+            counter--;
+            return;
+        }
+    }
 
 
 
