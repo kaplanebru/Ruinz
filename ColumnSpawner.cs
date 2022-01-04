@@ -12,7 +12,8 @@ public class ColumnSpawner : MonoBehaviour
     float StartSize = 0.2f;
     float baseSize = 1.5f;
 
-    List<GameObject> columnL = new List<GameObject>();
+    [SerializeField]
+    public List<GameObject> columnL = new List<GameObject>();
 
     void Start()
     {
@@ -25,7 +26,8 @@ public class ColumnSpawner : MonoBehaviour
 
     void Update()
     {
-        
+        columnL[columnL.Count-1].gameObject.GetComponent<Block>().IsClickable = true;
+
     }
   
     void SpawnBlocks(int amount)
@@ -34,7 +36,7 @@ public class ColumnSpawner : MonoBehaviour
         {
            SpawnBlock(i, 2f);
         }
-        columnL[columnL.Count-1].gameObject.GetComponent<Block>().isClickable = true;
+        //columnL[columnL.Count-1].gameObject.GetComponent<Block>().isClickable = true;
     }
 
 
@@ -47,7 +49,7 @@ public class ColumnSpawner : MonoBehaviour
         var brick = Object.Instantiate(blockPb, pos, transform.rotation);
         var brickS = brick.GetComponent<Block>();
 
-        brickS.Init(columnType.colorSet[i], false); //colorPalette[Random.Range(0, 3)]
+        brickS.Init(columnType.colorSet[i], false, i); //colorPalette[Random.Range(0, 3)]
         brick.transform.parent = column.transform;
 
         brick.transform.DOScaleY(endSize, ease);

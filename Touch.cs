@@ -43,15 +43,19 @@ public class Touch : MonoBehaviour
                 //Renderer rend = hit.transform.GetComponent<MeshRenderer>();
 
                 
-                hit.transform.GetComponent<Block>().Init(Color.red, true);
+                Block hitBlock = hit.transform.GetComponent<Block>();
+                //hitBlock.Init(Color.red, false, 1);
+                
+
                 clicked.Add(hit.transform.gameObject);
-                Debug.Log("clicked: " + clicked.Count);
+                //Debug.Log("clicked: " + clicked.Count);
 
                 counter++;
-                Debug.Log("counter: " + counter);
-                DebugClicked();
+                //Debug.Log("counter: " + counter);
+                
 
                 yield return new WaitUntil(ReadyToCompare);
+                //hitBlock.Clickable = true;
                 //if more than 2 clear list.
 
             }
@@ -63,7 +67,10 @@ public class Touch : MonoBehaviour
     {
         if(counter > 1)
         {
-            Compare();
+            clicked[0].GetComponent<Block>().IsClickable = true;
+            clicked[1].GetComponent<Block>().IsClickable = true;
+            Compare(counter);
+
             clicked.Clear();
             counter = 0;
             return true;
@@ -74,12 +81,17 @@ public class Touch : MonoBehaviour
         }
     }
 
-    void DebugClicked()
+  
+    void Compare(int counter)
     {
-        Debug.Log(clicked[0]);
-    }
-    void Compare()
-    {
+        if(clicked[0] == clicked[1])
+        {
+            clicked.Remove(clicked[0]);
+            counter--;
+            return;
+        }
+
+
         Color[] col = new Color[2];
 
         for(int i=0; i<2; i++)
@@ -89,7 +101,30 @@ public class Touch : MonoBehaviour
         
         if (col[0]==col[1])
         {
+            
             clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
+            
+            //clicked[0].transform.parent.GetComponent<ColumnSpawner>().columnL.Remove(clicked[0]);
+            //List yerine dict yapılabilir.
+
+            //clicked[1].transform.parent.GetComponent<ColumnSpawner>().columnL.Add(clicked[0]);
+
+            clicked[0].transform.parent = clicked[1].transform.parent;
+            
+
+
+            
+
+            
+            
+             
+            /*
+            List<GameObject> column = clicked[0].transform.parent.GetComponent<ColumnSpawner>().columnL;
+            column.Remove(clicked[0]);
+            Debug.Log("column count: ");
+            //column[column.Count -1].GetComponent<Block>().isClickable = true;
+            */
+
         }
         //color id
     }

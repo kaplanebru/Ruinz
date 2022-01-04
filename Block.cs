@@ -6,7 +6,10 @@ public class Block : MonoBehaviour
 {
     Renderer rend;
     Color col;
-    public bool isClickable = false;
+    int columnId;
+    private bool isClickable = false;
+
+    public bool IsClickable { get => isClickable; set => isClickable = value; }
 
     void Awake()
     {   
@@ -15,18 +18,18 @@ public class Block : MonoBehaviour
     }
     
 	
-
-    public Block Init(Color col, bool isClickable)
+    [SerializeField]
+    public Block Init(Color col, bool isClickable, int columnId)
     {
         this.rend.material.color = col;
-        this.isClickable = isClickable;
-        //this.clicked = clicked;
+        this.IsClickable = isClickable;
+        this.columnId = columnId;
         return this;
     }
  
     void Update()
     {
-        if(isClickable == true)
+        if(IsClickable == true)
         {
             transform.tag = "clickable";
         }
