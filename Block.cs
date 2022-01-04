@@ -18,7 +18,6 @@ public class Block : MonoBehaviour
         {
             /*if(value == true)
                 transform.tag = "clickable";
-                //add fx
             else*/
             isClickable = value;
         }  

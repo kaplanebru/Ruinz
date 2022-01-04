@@ -22,26 +22,14 @@ public class ColumnSpawner : MonoBehaviour
         amount = columnType.amount;
         SpawnBlocks(amount);
         DOTween.Init();
-
-
         //Debug.Log(baseSize);
     }
 
     void Update()
     {
-        columnList[columnList.Count-1].gameObject.GetComponent<Block>().IsClickable = true;
-        ChildCheck();
-        
+        UpdateColumn();
     }
 
-    /*private void OnEnable() 
-    {
-        Touch.OnScaled += RemoveBlock;
-    }
-    private void OnDisable() 
-    {
-        Touch.OnScaled -= RemoveBlock;
-    }*/
   
     void SpawnBlocks(int amount)
     {
@@ -50,8 +38,8 @@ public class ColumnSpawner : MonoBehaviour
            SpawnBlock(i, 2f); //amount-i
         }
         //columnList[columnList.Count-1].gameObject.GetComponent<Block>().IsClickable = true;
+        
     }
-
 
     void SpawnBlock(int i, float ease)
     {
@@ -73,22 +61,8 @@ public class ColumnSpawner : MonoBehaviour
     
     }
 
-    /*void RemoveBlock()
+    void UpdateColumn()
     {
-        if(columnList.Count-1 < 1)
-        {
-            return;
-        }
-        else
-        {
-            columnList.RemoveAt(columnList.Count-1);
-            //columnList[columnList.Count-1].gameObject.GetComponent<Block>().IsClickable = true;
-        }
-    }*/
-
-    void ChildCheck()
-    {
-        
         if (column.transform.childCount < columnList.Count)
         {
             var movingBrick = columnList[columnList.Count-1];
@@ -101,8 +75,23 @@ public class ColumnSpawner : MonoBehaviour
             columnList.Add(moving);
             moving.tag = "Untagged";
         }
+        Clickability();
     }
 
+    void Clickability()
+    {
+        for(int i = 0; i < columnList.Count; i++)
+        {
+            if(i==columnList.Count-1)
+            {
+                columnList[i].gameObject.GetComponent<Block>().IsClickable = true;
+            }
+            else
+            {
+                columnList[i].gameObject.GetComponent<Block>().IsClickable = false;
+            }
+        }
+    }
 
 }
 
