@@ -11,8 +11,6 @@ public class BlockManager : MonoBehaviour
     public delegate void Transposition(GameObject brick, Transform column);
 	public static event Transposition OnTransposition;
 
-    public delegate void AddBrick(Transform column, GameObject brick);
-    public static event AddBrick OnAddBrick;
     
     void Start() 
     {
@@ -102,10 +100,7 @@ public class BlockManager : MonoBehaviour
         {
             OnTransposition(clicked[0], clicked[1].transform.parent);
         }
-        if(OnAddBrick != null)
-        {
-            OnAddBrick(clicked[1].transform.parent, clicked[0]);
-        }
+
         
     }
     void MoveIfEmpty()

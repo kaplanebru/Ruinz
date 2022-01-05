@@ -20,29 +20,22 @@ public class ColumnSpawner : MonoBehaviour
     void Start()
     {
         amount = columnType.amount;
-        SpawnBlocks(amount);
+        SpawnColumn(amount);
         DOTween.Init();
         //Debug.Log(baseSize);
     }
 
-    void Update()
-    {
-        
-        Clickability();
-    }
-
-  
-    void SpawnBlocks(int amount)
+    void SpawnColumn(int amount)
     {
         for(int i=0; i<amount; i++)
         {
-           SpawnBlock(i, 2f); //amount-i
+           SpawnBlocks(i, 2f); //amount-i
         }
-        //IsClickable = true;
+        columnList[columnList.Count-1].tag = "clickable";
         
     }
 
-    void SpawnBlock(int i, float ease)
+    void SpawnBlocks(int i, float ease)
     {
        
         var posy = transform.position.y + i*StartSize; // + 1.1f
@@ -59,7 +52,7 @@ public class ColumnSpawner : MonoBehaviour
         brick.transform.DOMoveY(baseSize + i, ease);
 
         columnList.Add(brick);
-    
+        
     }
 
     private void OnEnable()
@@ -78,34 +71,18 @@ public class ColumnSpawner : MonoBehaviour
         if(brick == movingBrick)
         {
             columnList.Remove(movingBrick);
+            columnList[columnList.Count-1].tag = "clickable";
+            
         }
         else if(movingBrick.transform.parent == column)
         {
             columnList.Add(brick);
+            columnList[columnList.Count-2].tag = "Untagged";
         }
     }
 
 
-    void Clickability()
-    {
-        for(int i = 0; i < columnList.Count; i++)
-        {
-            if(columnList.Count > 0)
-            {
-                if(i==columnList.Count-1)
-                {
-                    columnList[i].tag = "clickable";
-                }
-                else
-                {
-                    //columnList[i].gameObject.GetComponent<Block>().IsClickable = false;
-                    columnList[i].tag = "Untagged";
-                }
-            }
-
-        }
-
-    }
+    
 
     //ALTERNATIVE APROACH
     /*if (column.transform.childCount < columnList.Count)
