@@ -26,7 +26,6 @@ public class Block : MonoBehaviour
     void Awake()
     {   
         rend = gameObject.GetComponent<MeshRenderer>();
-  
     }
     
 	
@@ -46,10 +45,6 @@ public class Block : MonoBehaviour
         Debug.Log("Yoko");
     }
  
-    void Update()
-    {
-    
-    }
 
    
 

@@ -28,8 +28,6 @@ public class ColumnSpawner : MonoBehaviour
         //Debug.Log(baseSize);
     }
 
-
-
     void Update()
     {
         UpdateColumn();
@@ -82,10 +80,8 @@ public class ColumnSpawner : MonoBehaviour
         }
         else if(column.transform.childCount == 0)
         {
-            //transform.GetChild(0).tag = "clickable";
             column.transform.parent.tag = "clickable";
             //add glow fx
-            //OnEmptyColumn();
         }
         Clickability();
     }
@@ -94,15 +90,19 @@ public class ColumnSpawner : MonoBehaviour
     {
         for(int i = 0; i < columnList.Count; i++)
         {
-            if(i==columnList.Count-1)
+            if(columnList.Count > 0)
             {
-                columnList[i].tag = "clickable";
+                if(i==columnList.Count-1)
+                {
+                    columnList[i].tag = "clickable";
+                }
+                else
+                {
+                    //columnList[i].gameObject.GetComponent<Block>().IsClickable = false;
+                    columnList[i].tag = "Untagged";
+                }
             }
-            else
-            {
-                //columnList[i].gameObject.GetComponent<Block>().IsClickable = false;
-                columnList[i].tag = "Untagged";
-            }
+
         }
 
     }

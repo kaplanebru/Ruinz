@@ -46,7 +46,6 @@ public class BlockManager : MonoBehaviour
 
     public bool ReadyToCompare()
     {
-        
         if(counter > 1)
         {
             //clicked[0] ve [1] isclickable;
@@ -56,10 +55,7 @@ public class BlockManager : MonoBehaviour
             counter = 0;
             return true;
         }
-        else
-        {
-            return false;
-        }
+    return false;     
     }
 
     void Compare(int counter)
@@ -92,6 +88,7 @@ public class BlockManager : MonoBehaviour
             //set fx. life time: 1 second.
         }
     }
+    
     void MoveRuin()
     {
         clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
@@ -103,8 +100,4 @@ public class BlockManager : MonoBehaviour
         clicked[0].transform.parent = clicked[1].transform.GetChild(0);
         clicked[1].tag = "Untagged";
     }
-
-
-
-
 }
