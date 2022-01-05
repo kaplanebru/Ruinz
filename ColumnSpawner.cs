@@ -12,7 +12,10 @@ public class ColumnSpawner : MonoBehaviour
     float endSize = 1f;
     float StartSize = 0.2f;
     float baseSize = 1.5f;
-    //public GameObject movingBrick;
+    
+
+    /*public delegate void EmptyColumn();
+	public static event EmptyColumn OnEmptyColumn;*/
 
     [SerializeField]
     public List<GameObject> columnList = new List<GameObject>();
@@ -24,6 +27,8 @@ public class ColumnSpawner : MonoBehaviour
         DOTween.Init();
         //Debug.Log(baseSize);
     }
+
+
 
     void Update()
     {
@@ -75,6 +80,12 @@ public class ColumnSpawner : MonoBehaviour
             columnList.Add(moving);
             moving.tag = "Untagged";
         }
+        else if(column.transform.childCount == 0)
+        {
+            //transform.GetChild(0).tag = "clickable";
+            column.transform.parent.tag = "clickable";
+            //OnEmptyColumn();
+        }
         Clickability();
     }
 
@@ -84,13 +95,16 @@ public class ColumnSpawner : MonoBehaviour
         {
             if(i==columnList.Count-1)
             {
-                columnList[i].gameObject.GetComponent<Block>().IsClickable = true;
+                //columnList[i].gameObject.GetComponent<Block>().IsClickable = true;
+                columnList[i].tag = "clickable";
             }
             else
             {
-                columnList[i].gameObject.GetComponent<Block>().IsClickable = false;
+                //columnList[i].gameObject.GetComponent<Block>().IsClickable = false;
+                columnList[i].tag = "Untagged";
             }
         }
+
     }
 
 }

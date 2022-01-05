@@ -8,8 +8,7 @@ public class Touch : MonoBehaviour
     int counter = 0;
     List <GameObject> clicked = new List<GameObject>();
     
-    /*public delegate void OnScale();
-	public static event OnScale OnScaled;*/
+
     
     void Start() 
     {
@@ -31,16 +30,13 @@ public class Touch : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit))
         {
-            var clickable = hit.transform.GetComponent<Block>().IsClickable;
-            if(hit.collider != null && clickable == true)
+            //var clickable = hit.transform.GetComponent<Block>().IsClickable;
+            if(hit.collider != null && hit.transform.tag == "clickable")//clickable == true)
             {   
-                
                 clicked.Add(hit.transform.gameObject);
                 clicked[0].tag = "moving";
-                //Debug.Log("clicked: " + clicked.Count);
-
+                
                 counter++;
-                //Debug.Log("counter: " + counter);
                 
                 yield return new WaitUntil(ReadyToCompare);
                 //if more than 2 clear list.
@@ -51,6 +47,7 @@ public class Touch : MonoBehaviour
 
     public bool ReadyToCompare()
     {
+        
         if(counter > 1)
         {
             //clicked[0].GetComponent<Block>().IsClickable = true;
@@ -69,7 +66,7 @@ public class Touch : MonoBehaviour
 
     void Compare(int counter)
     {
-        //CheckIfSame();
+        //checkIfSame
         if(clicked[0] == clicked[1])
         {
             clicked.Clear();
@@ -87,8 +84,79 @@ public class Touch : MonoBehaviour
         {
             clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
             clicked[0].transform.parent = clicked[1].transform.parent;
+            //clicked[1].tag = "Untagged";
+            //clicked[0].tag = "clickable";
+            //clicked[0]'ın altındaki de clickable olacağı için Colum scriptine gitmek gerekecek.
         }
+        else
+        {
+            Debug.Log("No match");
+            //set fx. life time: 1 second.
+        }
+
+        if(clicked[1].name == "Cube")
+        {
+            /*clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
+            clicked[0].transform.parent = clicked[1].transform.GetChild(0);
+            clicked[1].tag = "Untagged";*/
+            ColumnEmpty();
+        }
+        
     }
+
+    /*private void OnEnable() 
+    {
+        ColumnSpawner.OnEmptyColumn += ColumnEmpty;
+    }
+    private void OnDisable() 
+    {
+        ColumnSpawner.OnEmptyColumn -= ColumnEmpty;
+    }*/
+
+    void ColumnEmpty()
+    {
+        clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
+        clicked[0].transform.parent = clicked[1].transform.GetChild(0);
+        clicked[1].tag = "Untagged";
+    }
+
+    /*public bool ReadyToCompare()
+    {
+        if(counter > 1)
+        {
+            if(clicked[0] == clicked[1])
+            {
+                clicked.Clear();
+                //return;
+            }
+
+            Color[] col = new Color[2];
+
+            for(int i=0; i<2; i++)
+            {
+                col[i] = clicked[i].GetComponent<MeshRenderer>().material.color;
+            }
+            
+            if (col[0]==col[1])
+            {
+                clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
+                clicked[0].transform.parent = clicked[1].transform.parent;
+                clicked.Clear();
+                counter = 0;
+            }
+            else
+            {
+                Debug.Log("No match");
+                clicked.RemoveAt(0);
+                counter--;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }*/
 
 
 

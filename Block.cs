@@ -16,9 +16,9 @@ public class Block : MonoBehaviour
         get {return isClickable;} 
         set
         {
-            /*if(value == true)
+            if(value == true)
                 transform.tag = "clickable";
-            else*/
+            else
             isClickable = value;
         }  
     }
