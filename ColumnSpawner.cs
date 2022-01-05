@@ -44,8 +44,7 @@ public class ColumnSpawner : MonoBehaviour
         var brick = Object.Instantiate(blockPb, pos, transform.rotation);
         var brickS = brick.GetComponent<Block>();
 
-        brickS.Init(columnType.colorSet[i], false, i); //colorPalette[Random.Range(0, 3)] 
-        //brickS.Init(columnType.colorSet[i], false, i).DebugYoko();
+        brickS.Init(columnType.colorSet[i], false, i); 
         brick.transform.parent = column.transform;
 
         brick.transform.DOScaleY(endSize, ease);
