@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Touch : MonoBehaviour
+public class BlockManager : MonoBehaviour
 { 
     int counter = 0;
     List <GameObject> clicked = new List<GameObject>();
     
-
     
     void Start() 
     {
@@ -97,9 +96,6 @@ public class Touch : MonoBehaviour
     {
         clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
         clicked[0].transform.parent = clicked[1].transform.parent;
-        //clicked[1].tag = "Untagged";
-        //clicked[0].tag = "clickable";
-        //clicked[0]'ın altındaki de clickable olacağı için Colum scriptine gitmek gerekecek.
     }
     void MoveIfEmpty()
     {
@@ -109,84 +105,6 @@ public class Touch : MonoBehaviour
     }
 
 
-
-
-    /*private void OnEnable() 
-    {
-        ColumnSpawner.OnEmptyColumn += MoveIfEmpty;
-    }
-    private void OnDisable() 
-    {
-        ColumnSpawner.OnEmptyColumn -= MoveIfEmpty;
-    }*/
-
-
-    /*public bool ReadyToCompare()
-    {
-        if(counter > 1)
-        {
-            if(clicked[0] == clicked[1])
-            {
-                clicked.Clear();
-                //return;
-            }
-
-            Color[] col = new Color[2];
-
-            for(int i=0; i<2; i++)
-            {
-                col[i] = clicked[i].GetComponent<MeshRenderer>().material.color;
-            }
-            
-            if (col[0]==col[1])
-            {
-                clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
-                clicked[0].transform.parent = clicked[1].transform.parent;
-                clicked.Clear();
-                counter = 0;
-            }
-            else
-            {
-                Debug.Log("No match");
-                clicked.RemoveAt(0);
-                counter--;
-            }
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }*/
-
-
-
-
-    /* 
-    {
-        //Renderer rend = hit.transform.GetComponent<MeshRenderer>();
-        //Block hitBlock = hit.transform.GetComponent<Block>();
-        //hitBlock.Init(Color.red, false, 1);
-
-        Renderer rend = hit.transform.GetComponent<MeshRenderer>();
-        Material blockMat = rend.material;
-        Color currentCol = blockMat.color;
-
-        clicked = true;
-        blockMat.DOColor(Color.white, 1f);
-
-        yield return new WaitForSeconds(2);
-                
-        blockMat.color = currentCol;
-
-        Block block;
-
-        public void Initialize(Block block)
-        {
-            this.block = block;
-        }
-
-    }*/
 
 
 }

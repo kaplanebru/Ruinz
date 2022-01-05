@@ -42,7 +42,7 @@ public class ColumnSpawner : MonoBehaviour
         {
            SpawnBlock(i, 2f); //amount-i
         }
-        //columnList[columnList.Count-1].gameObject.GetComponent<Block>().IsClickable = true;
+        //IsClickable = true;
         
     }
 
@@ -96,7 +96,6 @@ public class ColumnSpawner : MonoBehaviour
         {
             if(i==columnList.Count-1)
             {
-                //columnList[i].gameObject.GetComponent<Block>().IsClickable = true;
                 columnList[i].tag = "clickable";
             }
             else
