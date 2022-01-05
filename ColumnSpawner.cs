@@ -14,9 +14,6 @@ public class ColumnSpawner : MonoBehaviour
     float baseSize = 1.5f;
     
 
-    /*public delegate void EmptyColumn();
-	public static event EmptyColumn OnEmptyColumn;*/
-
     [SerializeField]
     public List<GameObject> columnList = new List<GameObject>();
 
@@ -30,7 +27,8 @@ public class ColumnSpawner : MonoBehaviour
 
     void Update()
     {
-        UpdateColumn();
+        
+        Clickability();
     }
 
   
@@ -64,27 +62,29 @@ public class ColumnSpawner : MonoBehaviour
     
     }
 
-    void UpdateColumn()
+    private void OnEnable()
     {
-        if (column.transform.childCount < columnList.Count)
-        {
-            var movingBrick = columnList[columnList.Count-1];
-            columnList.Remove(movingBrick);
-
-        }
-        else if(column.transform.childCount > columnList.Count)
-        { 
-            var moving = GameObject.FindGameObjectWithTag("moving");
-            columnList.Add(moving);
-            moving.tag = "Untagged";
-        }
-        else if(column.transform.childCount == 0)
-        {
-            column.transform.parent.tag = "clickable";
-            //add glow fx
-        }
-        Clickability();
+        BlockManager.OnTransposition += UpdateColumn;
     }
+
+    private void OnDisable() 
+    {
+        BlockManager.OnTransposition -= UpdateColumn;
+    }
+
+    void UpdateColumn(GameObject brick, Transform column)
+    {
+        var movingBrick = columnList[columnList.Count-1];
+        if(brick == movingBrick)
+        {
+            columnList.Remove(movingBrick);
+        }
+        else if(movingBrick.transform.parent == column)
+        {
+            columnList.Add(brick);
+        }
+    }
+
 
     void Clickability()
     {
@@ -106,6 +106,26 @@ public class ColumnSpawner : MonoBehaviour
         }
 
     }
+
+    //ALTERNATIVE APROACH
+    /*if (column.transform.childCount < columnList.Count)
+        {
+            var movingBrick = columnList[columnList.Count-1];
+            columnList.Remove(movingBrick);
+
+        }
+        else if(column.transform.childCount > columnList.Count)
+        { 
+            var moving = GameObject.FindGameObjectWithTag("moving");
+            columnList.Add(moving);
+            moving.tag = "Untagged";
+        }
+        else if(column.transform.childCount == 0)
+        {
+            column.transform.parent.tag = "clickable";
+            //add glow fx
+        }*/
+
 
 }
 

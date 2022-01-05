@@ -8,6 +8,11 @@ public class BlockManager : MonoBehaviour
     int counter = 0;
     List <GameObject> clicked = new List<GameObject>();
     
+    public delegate void Transposition(GameObject brick, Transform column);
+	public static event Transposition OnTransposition;
+
+    public delegate void AddBrick(Transform column, GameObject brick);
+    public static event AddBrick OnAddBrick;
     
     void Start() 
     {
@@ -33,7 +38,7 @@ public class BlockManager : MonoBehaviour
             if(hit.collider != null && hit.transform.tag == "clickable")//clickable == true)
             {   
                 clicked.Add(hit.transform.gameObject);
-                clicked[0].tag = "moving";
+                //clicked[0].tag = "moving";
                 
                 counter++;
                 
@@ -93,6 +98,15 @@ public class BlockManager : MonoBehaviour
     {
         clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
         clicked[0].transform.parent = clicked[1].transform.parent;
+        if(OnTransposition != null)
+        {
+            OnTransposition(clicked[0], clicked[1].transform.parent);
+        }
+        if(OnAddBrick != null)
+        {
+            OnAddBrick(clicked[1].transform.parent, clicked[0]);
+        }
+        
     }
     void MoveIfEmpty()
     {
