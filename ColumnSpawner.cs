@@ -84,6 +84,7 @@ public class ColumnSpawner : MonoBehaviour
         {
             //transform.GetChild(0).tag = "clickable";
             column.transform.parent.tag = "clickable";
+            //add glow fx
             //OnEmptyColumn();
         }
         Clickability();

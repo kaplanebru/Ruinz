@@ -50,8 +50,7 @@ public class Touch : MonoBehaviour
         
         if(counter > 1)
         {
-            //clicked[0].GetComponent<Block>().IsClickable = true;
-            //clicked[1].GetComponent<Block>().IsClickable = true;
+            //clicked[0] ve [1] isclickable;
             Compare(counter);
 
             clicked.Clear();
@@ -82,43 +81,45 @@ public class Touch : MonoBehaviour
         
         if (col[0]==col[1])
         {
-            clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
-            clicked[0].transform.parent = clicked[1].transform.parent;
-            //clicked[1].tag = "Untagged";
-            //clicked[0].tag = "clickable";
-            //clicked[0]'ın altındaki de clickable olacağı için Colum scriptine gitmek gerekecek.
+            MoveRuin();
+        }
+        else if(clicked[1].name == "Cube")
+        {
+            MoveIfEmpty();
         }
         else
         {
             Debug.Log("No match");
             //set fx. life time: 1 second.
         }
-
-        if(clicked[1].name == "Cube")
-        {
-            /*clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
-            clicked[0].transform.parent = clicked[1].transform.GetChild(0);
-            clicked[1].tag = "Untagged";*/
-            ColumnEmpty();
-        }
-        
     }
-
-    /*private void OnEnable() 
+    void MoveRuin()
     {
-        ColumnSpawner.OnEmptyColumn += ColumnEmpty;
+        clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
+        clicked[0].transform.parent = clicked[1].transform.parent;
+        //clicked[1].tag = "Untagged";
+        //clicked[0].tag = "clickable";
+        //clicked[0]'ın altındaki de clickable olacağı için Colum scriptine gitmek gerekecek.
     }
-    private void OnDisable() 
-    {
-        ColumnSpawner.OnEmptyColumn -= ColumnEmpty;
-    }*/
-
-    void ColumnEmpty()
+    void MoveIfEmpty()
     {
         clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
         clicked[0].transform.parent = clicked[1].transform.GetChild(0);
         clicked[1].tag = "Untagged";
     }
+
+
+
+
+    /*private void OnEnable() 
+    {
+        ColumnSpawner.OnEmptyColumn += MoveIfEmpty;
+    }
+    private void OnDisable() 
+    {
+        ColumnSpawner.OnEmptyColumn -= MoveIfEmpty;
+    }*/
+
 
     /*public bool ReadyToCompare()
     {
