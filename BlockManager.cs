@@ -91,7 +91,17 @@ public class BlockManager : MonoBehaviour
     void MoveRuin()
     {
         clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
-        var column2 = clicked[1].transform.parent;
+        
+        Transform column2;
+
+        if( clicked[1].name == "Base")
+        {
+            column2 = clicked[1].transform.GetChild(0);
+        }
+        else
+        {
+            column2 = clicked[1].transform.parent;
+        }
         
         if(OnTransposition != null)
         {
@@ -112,8 +122,9 @@ public class BlockManager : MonoBehaviour
        {
            clicked[0].transform.parent = clicked[1].transform.parent;
        }
-
     }
+
+
     
 
 }
