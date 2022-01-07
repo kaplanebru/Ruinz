@@ -9,7 +9,7 @@ public class Block : MonoBehaviour
     public int blockId;
 
     //[SerializeField] 
-    private bool isClickable = false;
+    /*private bool isClickable = false;
 
     public bool IsClickable 
     { 
@@ -21,7 +21,7 @@ public class Block : MonoBehaviour
             else
             isClickable = value;
         }  
-    }
+    }*/
 
     void Awake()
     {   
@@ -30,11 +30,11 @@ public class Block : MonoBehaviour
     
 	
     [SerializeField]
-    public Block Init(Color col, bool isClickable, int blockId)
+    public Block Init(Color col, string tag, int blockId)
     {
         this.rend.material.color = col;
-        //this.transform.tag = tag;
-        this.IsClickable = isClickable;
+        this.transform.tag = tag;
+        //this.IsClickable = isClickable;
         this.blockId = blockId;
         //this.colorId
         return this;

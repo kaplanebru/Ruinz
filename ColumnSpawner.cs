@@ -44,7 +44,7 @@ public class ColumnSpawner : MonoBehaviour
         var brick = Object.Instantiate(blockPb, pos, transform.rotation);
         var brickS = brick.GetComponent<Block>();
 
-        brickS.Init(columnType.colorSet[i], false, i); 
+        brickS.Init(columnType.colorSet[i], "Untagged", i); 
         brick.transform.parent = column.transform;
 
         brick.transform.DOScaleY(endSize, ease);
