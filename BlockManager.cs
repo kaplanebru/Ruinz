@@ -77,7 +77,7 @@ public class BlockManager : MonoBehaviour
             col[i] = clicked[i].GetComponent<MeshRenderer>().material.color;
         }
         
-        if (col[0]==col[1])
+        if (col[0]==col[1] || clicked[1].name == "Base")
         {
             MoveRuin();
         }

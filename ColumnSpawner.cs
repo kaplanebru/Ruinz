@@ -67,21 +67,24 @@ public class ColumnSpawner : MonoBehaviour
     void UpdateColumn(GameObject brick, Transform column2)
     {
         var movingBrick = columnList[columnList.Count-1];
-        if(brick == movingBrick)
+        if(columnList.Count > 1)
         {
-            columnList.Remove(movingBrick);
-            columnList[columnList.Count-1].tag = "clickable";
-            
+            if(brick == movingBrick)
+            {
+                columnList.Remove(movingBrick);
+                columnList[columnList.Count-1].tag = "clickable";
+                
+            }
+            else if(movingBrick.transform.parent == column2)
+            {
+                columnList.Add(brick);
+                columnList[columnList.Count-2].tag = "Untagged";
+            }
         }
-        else if(movingBrick.transform.parent == column2)
+        
         {
-            columnList.Add(brick);
-            columnList[columnList.Count-2].tag = "Untagged";
-        }
-        else if(columnList.Count == 0)
-        {
-            Debug.Log("Yo");
-            column.transform.parent.transform.parent.tag = "clickable";
+            //Debug.Log("Yo");
+            brick.transform.parent.transform.parent.tag = "clickable";
         }
     }
 
