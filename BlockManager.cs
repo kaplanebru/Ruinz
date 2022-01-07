@@ -32,7 +32,6 @@ public class BlockManager : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit))
         {
-            //var clickable = hit.transform.GetComponent<Block>().IsClickable;
             if(hit.collider != null && hit.transform.tag == "clickable")//clickable == true)
             {   
                 clicked.Add(hit.transform.gameObject);
@@ -92,23 +91,27 @@ public class BlockManager : MonoBehaviour
     {
         clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
         
-        Transform column2;
+        if(OnTransposition != null)
+        {
+            OnTransposition(clicked[0], checkClicked2()); 
+        }
 
+        SetParent();
+    }
+
+    Transform checkClicked2()
+    {
+        Transform column2;
         if( clicked[1].name == "Base")
         {
             column2 = clicked[1].transform.GetChild(0);
+            return column2;
         }
         else
         {
             column2 = clicked[1].transform.parent;
+            return column2;
         }
-        
-        if(OnTransposition != null)
-        {
-            OnTransposition(clicked[0], column2); 
-        }
-
-        SetParent();
     }
 
     void SetParent()
@@ -116,7 +119,7 @@ public class BlockManager : MonoBehaviour
        if( clicked[1].name == "Base")
        {
             clicked[0].transform.parent = clicked[1].transform.GetChild(0);
-            clicked[1].tag = "Untagged";
+            //clicked[1].tag = "Untagged";
        }
        else
        {
