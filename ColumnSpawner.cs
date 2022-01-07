@@ -64,27 +64,29 @@ public class ColumnSpawner : MonoBehaviour
         BlockManager.OnTransposition -= UpdateColumn;
     }
 
-    void UpdateColumn(GameObject brick, Transform column2)
+    void UpdateColumn(GameObject firstBrick, Transform column2)
     {
         var movingBrick = columnList[columnList.Count-1];
         if(columnList.Count > 1)
         {
-            if(brick == movingBrick)
+            if(firstBrick == movingBrick)
             {
                 columnList.Remove(movingBrick);
                 columnList[columnList.Count-1].tag = "clickable";
                 
             }
-            else if(movingBrick.transform.parent == column2)
+            else if(column.transform == column2) 
+            //ici on inspecte tt les columns 
+            //avant: movingBrick.transform.parent == column2
             {
-                columnList.Add(brick);
+                columnList.Add(firstBrick); // movingBrick ne marche ici car il compris tt les terminal bricks dans le scene.
                 columnList[columnList.Count-2].tag = "Untagged";
             }
         }
         
         {
             //Debug.Log("Yo");
-            brick.transform.parent.transform.parent.tag = "clickable";
+            firstBrick.transform.parent.transform.parent.tag = "clickable";
         }
     }
 
