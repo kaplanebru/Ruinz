@@ -81,10 +81,6 @@ public class BlockManager : MonoBehaviour
         {
             MoveRuin();
         }
-        else if(clicked[1].name == "Cube")
-        {
-            MoveIfEmpty();
-        }
         else
         {
             Debug.Log("No match");
@@ -95,18 +91,26 @@ public class BlockManager : MonoBehaviour
     void MoveRuin()
     {
         clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
-        clicked[0].transform.parent = clicked[1].transform.parent;
+        
         if(OnTransposition != null)
         {
             OnTransposition(clicked[0], clicked[1].transform.parent);
         }
 
-        
+        SetParent();
     }
-    void MoveIfEmpty()
+
+    void SetParent()
     {
-        clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
-        clicked[0].transform.parent = clicked[1].transform.GetChild(0);
-        clicked[1].tag = "Untagged";
+       if( clicked[1].name == "Base")
+       {
+            clicked[0].transform.parent = clicked[1].transform.GetChild(0);
+            clicked[1].tag = "Untagged";
+       }
+       else
+       {
+           clicked[0].transform.parent = clicked[1].transform.parent;
+       }
     }
+
 }

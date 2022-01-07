@@ -64,7 +64,7 @@ public class ColumnSpawner : MonoBehaviour
         BlockManager.OnTransposition -= UpdateColumn;
     }
 
-    void UpdateColumn(GameObject brick, Transform column)
+    void UpdateColumn(GameObject brick, Transform column2)
     {
         var movingBrick = columnList[columnList.Count-1];
         if(brick == movingBrick)
@@ -73,10 +73,15 @@ public class ColumnSpawner : MonoBehaviour
             columnList[columnList.Count-1].tag = "clickable";
             
         }
-        else if(movingBrick.transform.parent == column)
+        else if(movingBrick.transform.parent == column2)
         {
             columnList.Add(brick);
             columnList[columnList.Count-2].tag = "Untagged";
+        }
+        else if(columnList.Count == 0)
+        {
+            Debug.Log("Yo");
+            column.transform.parent.transform.parent.tag = "clickable";
         }
     }
 
