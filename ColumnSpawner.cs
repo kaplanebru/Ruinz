@@ -71,42 +71,46 @@ public class ColumnSpawner : MonoBehaviour
         
             if(firstBrick == movingBrick)
             {
-                columnList.Remove(movingBrick);
-                if (columnList.Count > 0)
-                {
-                    columnList[columnList.Count-1].tag = "clickable";
-                }
-                else
-                {
-                    columnList.Add(leBase);
-                    //columnList.Clear();
-                    leBase.tag = "clickable";
-                }
+                RemoveBrick(leBase, firstBrick, movingBrick);
             }
             
-            if(column.transform == column2) // || column2 == leBase.transform.GetChild(0)
+            if(column.transform == column2) 
             //ici on inspecte tt les columns 
-            //avant: movingBrick.transform.parent == column2
+            //avant c'etait: movingBrick.transform.parent == column2
             {
-                columnList.Add(firstBrick); // movingBrick ne marche ici car il compris tt les terminal bricks dans le scene.
-                if(columnList.Count > 1)
-                {
-                    columnList[columnList.Count-2].tag = "Untagged";
-                }
+                AddBrick(firstBrick);
             }
 
+    }
+
+    void RemoveBrick(GameObject leBase, GameObject firstBrick, GameObject movingBrick)
+    {
+        columnList.Remove(movingBrick);
+        if (columnList.Count > 0)
+        {
+            columnList[columnList.Count-1].tag = "clickable";
+        }
+        else
+        {
+            columnList.Add(leBase);
+            //columnList.Clear();
+            leBase.tag = "clickable";
             
-        
-        
-        
-        
-            //firstBrick.transform.parent.transform.parent.tag = "clickable";
-        
-            /*else if (firstBrick == columnList[0])
-            {
-                //Debug.Log("ONE");
-                columnList.Clear();
-            }*/
+        }
+    }
+
+    void AddBrick(GameObject firstBrick)
+    {
+        columnList.Add(firstBrick); // movingBrick ne marche ici car il compris tt les terminal bricks dans le scene.
+        if(columnList.Count > 1)
+        {
+            columnList[columnList.Count-2].tag = "Untagged";
+        }
+        /*else if (firstBrick == columnList[0])
+        {
+            //Debug.Log("ONE");
+            columnList.Clear();
+        }*/
     }
 
 
