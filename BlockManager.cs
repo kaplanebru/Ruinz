@@ -8,7 +8,7 @@ public class BlockManager : MonoBehaviour
     int counter = 0;
     List <GameObject> clicked = new List<GameObject>();
     
-    public delegate void Transposition(GameObject brick, Transform column);
+    public delegate void Transposition(GameObject brick, Transform column2);
 	public static event Transposition OnTransposition;
 
     
@@ -91,10 +91,11 @@ public class BlockManager : MonoBehaviour
     void MoveRuin()
     {
         clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
+        var column2 = clicked[1].transform.parent;
         
         if(OnTransposition != null)
         {
-            OnTransposition(clicked[0], clicked[1].transform.parent);
+            OnTransposition(clicked[0], column2); 
         }
 
         SetParent();
@@ -111,6 +112,8 @@ public class BlockManager : MonoBehaviour
        {
            clicked[0].transform.parent = clicked[1].transform.parent;
        }
+
     }
+    
 
 }

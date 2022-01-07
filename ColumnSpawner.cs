@@ -22,8 +22,6 @@ public class ColumnSpawner : MonoBehaviour
         amount = columnType.amount;
         SpawnColumn(amount);
         DOTween.Init();
-        //Debug.Log(baseSize);
-        
     }
 
     void SpawnColumn(int amount)
@@ -80,12 +78,13 @@ public class ColumnSpawner : MonoBehaviour
                 }
                 else
                 {
-                    //columnList.Add(leBase);
+                    columnList.Add(leBase);
+                    //columnList.Clear();
                     leBase.tag = "clickable";
                 }
             }
             
-            if(column.transform == column2) // || leBase.transform.GetChild(0) == column2
+            if(column.transform == column2) // || column2 == leBase.transform.GetChild(0)
             //ici on inspecte tt les columns 
             //avant: movingBrick.transform.parent == column2
             {
@@ -94,8 +93,9 @@ public class ColumnSpawner : MonoBehaviour
                 {
                     columnList[columnList.Count-2].tag = "Untagged";
                 }
-                
             }
+
+            
         
         
         
