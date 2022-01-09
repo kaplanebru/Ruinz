@@ -51,7 +51,7 @@ public class ColumnSpawner : MonoBehaviour
         brick.transform.DOMoveY(baseSize + i, ease);
 
         columnList.Add(brick);
-        Debug.Log(columnType.colorSet[i]);
+        //Debug.Log(columnType.colorSet[i]);
         
     }
 
@@ -68,15 +68,16 @@ public class ColumnSpawner : MonoBehaviour
     void UpdateColumn(GameObject firstBrick, Transform column2)
     //column2: c.a.d column du deuxiemme brick
     {
-        var movingBrick = columnList[columnList.Count-1];
-        GameObject leBase = firstBrick.transform.parent.transform.parent.gameObject;
-        
+        if(columnList.Count > 0)
+        {
+            var movingBrick = columnList[columnList.Count-1];
             if(firstBrick == movingBrick)
             {
-                RemoveBrick(leBase, firstBrick, movingBrick);
+                RemoveBrick(firstBrick, movingBrick);
             }
-            
-            if(column.transform == column2) 
+        }
+
+        if(column.transform == column2) 
             //ici on inspecte tt les columns 
             //avant c'etait: movingBrick.transform.parent == column2
             {
@@ -85,16 +86,16 @@ public class ColumnSpawner : MonoBehaviour
 
     }
 
-    void RemoveBrick(GameObject leBase, GameObject firstBrick, GameObject movingBrick)
+    void RemoveBrick(GameObject firstBrick, GameObject movingBrick)
     {
         columnList.Remove(movingBrick);
-        if (columnList.Count > 0)
+        if(columnList.Count > 0)
         {
             columnList[columnList.Count-1].tag = "clickable";
         }
         else
         {
-            columnList.Add(leBase);
+            GameObject leBase = firstBrick.transform.parent.transform.parent.gameObject;
             leBase.tag = "clickable";
         }
     }
@@ -106,11 +107,6 @@ public class ColumnSpawner : MonoBehaviour
         {
             columnList[columnList.Count-2].tag = "Untagged";
         }
-        /*else if (firstBrick == columnList[0])
-        {
-            //Debug.Log("ONE");
-            columnList.Clear();
-        }*/
     }
 
 
