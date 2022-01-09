@@ -6,9 +6,11 @@ using DG.Tweening;
 public class BlockManager : MonoBehaviour
 { 
     int counter = 0;
+    float defaultGlow = 0.6f;
     List <GameObject> clicked = new List<GameObject>();
 
     GameObject theBase;
+    
     
     public delegate void Transposition(GameObject brick, Transform column2);
 	public static event Transposition OnTransposition;
@@ -17,6 +19,7 @@ public class BlockManager : MonoBehaviour
     void Start() 
     {
         DOTween.Init();
+        
     }
 
     void Update()
@@ -40,7 +43,7 @@ public class BlockManager : MonoBehaviour
                 clicked.Add(hit.transform.gameObject);
                 counter++;
 
-                Glow(0);
+                Glow(clicked[0], 0);
  
                 yield return new WaitUntil(ReadyToCompare);
                 //if more than 2 clear list.
@@ -53,7 +56,7 @@ public class BlockManager : MonoBehaviour
     {
         if(counter > 1)
         {
-            Glow(0.6f);
+            Glow(clicked[0], defaultGlow);
             Compare(counter);
             clicked.Clear();
             counter = 0;
@@ -125,6 +128,7 @@ public class BlockManager : MonoBehaviour
        {
             clicked[0].transform.parent = clicked[1].transform.GetChild(0);
             clicked[1].tag = "Untagged";
+            Glow(theBase, defaultGlow);
        }
        else
        {
@@ -132,9 +136,9 @@ public class BlockManager : MonoBehaviour
        }
     }
 
-    void Glow(float i)
+    void Glow(GameObject obj, float i)
     {
-        clicked[0].GetComponent<MeshRenderer>().material.SetFloat("_Metallic", i);  
+        obj.GetComponent<MeshRenderer>().material.SetFloat("_Metallic", i);
     }
 
     private void OnEnable() 
@@ -150,6 +154,8 @@ public class BlockManager : MonoBehaviour
     {
         theBase = leBase; 
         theBase.tag = "clickable";
+        Glow(theBase, 0);
+        
     }
 
 
