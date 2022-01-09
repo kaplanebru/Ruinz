@@ -13,6 +13,8 @@ public class ColumnSpawner : MonoBehaviour
     float StartSize = 0.2f;
     float baseSize = 1.5f;
     
+    public delegate void Empty(GameObject leBase);
+    public static event Empty OnEmpty;
 
     [SerializeField]
     public List<GameObject> columnList = new List<GameObject>();
@@ -96,13 +98,18 @@ public class ColumnSpawner : MonoBehaviour
         else
         {
             GameObject leBase = firstBrick.transform.parent.transform.parent.gameObject;
-            leBase.tag = "clickable";
+            
+            if(OnEmpty != null)
+            {
+                OnEmpty(leBase);
+            }
         }
     }
 
     void AddBrick(GameObject firstBrick)
     {
         columnList.Add(firstBrick); // movingBrick ne marche ici car il compris tt les terminal bricks dans le scene.
+        //reste une
         if(columnList.Count > 1)
         {
             columnList[columnList.Count-2].tag = "Untagged";

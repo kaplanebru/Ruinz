@@ -7,6 +7,8 @@ public class BlockManager : MonoBehaviour
 { 
     int counter = 0;
     List <GameObject> clicked = new List<GameObject>();
+
+    GameObject theBase;
     
     public delegate void Transposition(GameObject brick, Transform column2);
 	public static event Transposition OnTransposition;
@@ -78,9 +80,10 @@ public class BlockManager : MonoBehaviour
         }
         //Debug.Log("col1: " + col[0] + "col2: " + col[1]);
         
-        if (col[0]==col[1] || clicked[1].name == "Base")
+        if (col[0]==col[1] || clicked[1] == theBase)//|| clicked[1].name == "Base")
         {
             MoveRuin();
+            
         }
         else
         {
@@ -104,7 +107,7 @@ public class BlockManager : MonoBehaviour
     Transform checkClicked2()
     {
         Transform column2;
-        if( clicked[1].name == "Base")
+        if(clicked[1] == theBase)
         {
             column2 = clicked[1].transform.GetChild(0);
             return column2;
@@ -118,10 +121,10 @@ public class BlockManager : MonoBehaviour
 
     void SetParent()
     {
-       if( clicked[1].name == "Base")
+       if(clicked[1] == theBase)//clicked[1].name == "Base"
        {
             clicked[0].transform.parent = clicked[1].transform.GetChild(0);
-            //clicked[1].tag = "Untagged";
+            clicked[1].tag = "Untagged";
        }
        else
        {
@@ -132,6 +135,21 @@ public class BlockManager : MonoBehaviour
     void Glow(float i)
     {
         clicked[0].GetComponent<MeshRenderer>().material.SetFloat("_Metallic", i);  
+    }
+
+    private void OnEnable() 
+    {
+        ColumnSpawner.OnEmpty += EmptyColumn;
+    }
+    private void OnDisable() 
+    {
+        ColumnSpawner.OnEmpty -= EmptyColumn;
+    }
+
+    void EmptyColumn(GameObject leBase)
+    {
+        theBase = leBase; 
+        theBase.tag = "clickable";
     }
 
 
