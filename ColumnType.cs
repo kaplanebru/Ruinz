@@ -5,9 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Column Type", menuName = "Column Type")]
 public class ColumnType : ScriptableObject
 {
-    public Color blockColor;
-    //public Color changedColor = Color.yellow;
+    Color blockColor;
     public int amount = 5;
+
+    
     public Color[] colorSet;
     public void Awake() 
     {
@@ -21,5 +22,11 @@ public class ColumnType : ScriptableObject
             colorSet[i] = blockColor;
         }
     }
+
+    //URGENT: il faut faire attention a colorSet[0]:
+    // tjrs faire une double check avec le pickup color tool
+    //+faut faire le meme control entre autre scriptable objects
+
+    
 
 }

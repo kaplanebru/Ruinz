@@ -19,6 +19,7 @@ public class BlockManager : MonoBehaviour
 
     void Update()
     {
+
         if(Input.GetMouseButtonDown(0))
         {
             StartCoroutine(Touched());
@@ -32,13 +33,13 @@ public class BlockManager : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit))
         {
-            if(hit.collider != null && hit.transform.tag == "clickable")//clickable == true)
+            if(hit.collider != null && hit.transform.tag == "clickable")
             {   
                 clicked.Add(hit.transform.gameObject);
-                //clicked[0].tag = "moving";
-                
                 counter++;
-                
+
+                Glow(0);
+ 
                 yield return new WaitUntil(ReadyToCompare);
                 //if more than 2 clear list.
 
@@ -50,9 +51,8 @@ public class BlockManager : MonoBehaviour
     {
         if(counter > 1)
         {
-            //clicked[0] ve [1] isclickable;
+            Glow(0.6f);
             Compare(counter);
-
             clicked.Clear();
             counter = 0;
             return true;
@@ -70,11 +70,13 @@ public class BlockManager : MonoBehaviour
         }
 
         Color[] col = new Color[2];
+        
 
         for(int i=0; i<2; i++)
         {
             col[i] = clicked[i].GetComponent<MeshRenderer>().material.color;
         }
+        Debug.Log("col1: " + col[0] + "col2: " + col[1]);
         
         if (col[0]==col[1] || clicked[1].name == "Base")
         {
@@ -88,7 +90,7 @@ public class BlockManager : MonoBehaviour
     }
     
     void MoveRuin()
-    {
+    {   
         clicked[0].transform.position = clicked[1].transform.position + new Vector3(0,1,0);
         
         if(OnTransposition != null)
@@ -125,6 +127,11 @@ public class BlockManager : MonoBehaviour
        {
            clicked[0].transform.parent = clicked[1].transform.parent;
        }
+    }
+
+    void Glow(float i)
+    {
+        clicked[0].GetComponent<MeshRenderer>().material.SetFloat("_Metallic", i);  
     }
 
 

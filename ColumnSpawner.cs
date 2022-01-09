@@ -31,6 +31,7 @@ public class ColumnSpawner : MonoBehaviour
            SpawnBlocks(i, 2f); //amount-i
         }
         columnList[columnList.Count-1].tag = "clickable";
+        //columnType.colorSet[0] = columnType.colorSet[1];
         
     }
 
@@ -50,6 +51,7 @@ public class ColumnSpawner : MonoBehaviour
         brick.transform.DOMoveY(baseSize + i, ease);
 
         columnList.Add(brick);
+        Debug.Log(columnType.colorSet[i]);
         
     }
 
@@ -93,9 +95,7 @@ public class ColumnSpawner : MonoBehaviour
         else
         {
             columnList.Add(leBase);
-            //columnList.Clear();
             leBase.tag = "clickable";
-            
         }
     }
 
