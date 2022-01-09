@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEditor;
 
 public class ColumnSpawner : MonoBehaviour
 { 
@@ -15,6 +16,8 @@ public class ColumnSpawner : MonoBehaviour
     
     public delegate void Empty(GameObject leBase);
     public static event Empty OnEmpty;
+    Color blockColor;
+    public Color[] colorSet;
 
     [SerializeField]
     public List<GameObject> columnList = new List<GameObject>();
@@ -24,6 +27,8 @@ public class ColumnSpawner : MonoBehaviour
         amount = columnType.amount;
         SpawnColumn(amount);
         DOTween.Init();
+        
+        colorSet = new Color[amount];
     }
 
     void SpawnColumn(int amount)
@@ -34,6 +39,7 @@ public class ColumnSpawner : MonoBehaviour
         }
         columnList[columnList.Count-1].tag = "clickable";
         //columnType.colorSet[0] = columnType.colorSet[1];
+        EditorUtility.SetDirty(columnType);
         
     }
 
@@ -42,11 +48,11 @@ public class ColumnSpawner : MonoBehaviour
        
         var posy = transform.position.y + i*StartSize; // + 1.1f
         Vector3 pos = new Vector3(transform.position.x, posy, transform.position.z);
-        
+
         var brick = Object.Instantiate(blockPb, pos, transform.rotation);
         var brickS = brick.GetComponent<Block>();
 
-        brickS.Init(columnType.colorSet[i], "Untagged", i); 
+        brickS.Init(colorSet[i], "Untagged", i); 
         brick.transform.parent = column.transform;
 
         brick.transform.DOScaleY(endSize, ease);
@@ -54,6 +60,7 @@ public class ColumnSpawner : MonoBehaviour
 
         columnList.Add(brick);
         //Debug.Log(columnType.colorSet[i]);
+        
         
     }
 

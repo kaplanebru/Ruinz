@@ -138,7 +138,9 @@ public class BlockManager : MonoBehaviour
 
     void Glow(GameObject obj, float i)
     {
+        
         obj.GetComponent<MeshRenderer>().material.SetFloat("_Metallic", i);
+        //obj.GetComponent<MeshRenderer>().material.EnableKeyword()
     }
 
     private void OnEnable() 

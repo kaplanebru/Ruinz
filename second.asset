@@ -13,7 +13,4 @@ MonoBehaviour:
   m_Name: second
   m_EditorClassIdentifier: 
   amount: 3
-  colorSet:
-  - {r: 0.83921576, g: 0.3372549, b: 0.3372549, a: 0}
-  - {r: 0.8392157, g: 0.3372549, b: 0.3372549, a: 0}
-  - {r: 0.8392157, g: 0.3372549, b: 0.3372549, a: 0}
+  colorId: 000000000000000000000000
