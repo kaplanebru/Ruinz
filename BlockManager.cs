@@ -8,8 +8,9 @@ public class BlockManager : MonoBehaviour
     int counter = 0;
     float defaultGlow = 0.6f;
     List <GameObject> clicked = new List<GameObject>();
+    List <GameObject> theBase = new List<GameObject>();
 
-    GameObject theBase;
+    //GameObject theBase;
     
     
     public delegate void Transposition(GameObject brick, Transform column2);
@@ -65,6 +66,8 @@ public class BlockManager : MonoBehaviour
     return false;     
     }
 
+    
+
     void Compare(int counter)
     {
         //checkIfSame
@@ -83,7 +86,8 @@ public class BlockManager : MonoBehaviour
         }
         //Debug.Log("col1: " + col[0] + "col2: " + col[1]);
         
-        if (col[0]==col[1] || clicked[1] == theBase)//|| clicked[1].name == "Base")
+        if (col[0]==col[1] || theBase.Contains(clicked[1]))
+        //pendant le 2eme click, cad quand c'est clicked1, on evoque une nouvelle event qui pourrait changer le base.
         {
             MoveRuin();
             
@@ -110,7 +114,7 @@ public class BlockManager : MonoBehaviour
     Transform checkClicked2()
     {
         Transform column2;
-        if(clicked[1] == theBase)
+        if(theBase.Contains(clicked[1]))
         {
             column2 = clicked[1].transform.GetChild(0);
             return column2;
@@ -124,16 +128,45 @@ public class BlockManager : MonoBehaviour
 
     void SetParent()
     {
-       if(clicked[1] == theBase)//clicked[1].name == "Base"
+       if(theBase.Contains(clicked[1]))//clicked[1].name == "Base" - clicked[1] == theBase
        {
             clicked[0].transform.parent = clicked[1].transform.GetChild(0);
             clicked[1].tag = "Untagged";
-            Glow(theBase, defaultGlow);
+            theBase.Remove(clicked[1]);
+            Glow(clicked[1], defaultGlow);
+         
        }
        else
        {
            clicked[0].transform.parent = clicked[1].transform.parent;
        }
+    }
+
+    private void OnEnable() 
+    {
+        ColumnManager.OnEmpty += EmptyColumn;
+    }
+    private void OnDisable() 
+    {
+        ColumnManager.OnEmpty -= EmptyColumn;
+    }
+
+    void EmptyColumn()
+    {
+        //theBase = leBase;
+        //theBase = clicked[0].transform.parent.transform.parent.gameObject;
+        theBase.Add(clicked[0].transform.parent.transform.parent.gameObject);
+        Debug.Log(theBase.Count);
+        if(theBase.Count > 0)
+        {
+            for(int i=0; i<theBase.Count; i++)
+            {
+                theBase[i].tag = "clickable";
+                Glow(theBase[i], 0);
+            }
+        }
+        //theBase.tag = "clickable";
+        
     }
 
     void Glow(GameObject obj, float i)
@@ -143,22 +176,7 @@ public class BlockManager : MonoBehaviour
         //obj.GetComponent<MeshRenderer>().material.EnableKeyword()
     }
 
-    private void OnEnable() 
-    {
-        ColumnSpawner.OnEmpty += EmptyColumn;
-    }
-    private void OnDisable() 
-    {
-        ColumnSpawner.OnEmpty -= EmptyColumn;
-    }
-
-    void EmptyColumn(GameObject leBase)
-    {
-        theBase = leBase; 
-        theBase.tag = "clickable";
-        Glow(theBase, 0);
-        
-    }
+   
 
 
     
