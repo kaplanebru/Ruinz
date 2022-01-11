@@ -7,6 +7,7 @@ public class Block : MonoBehaviour
     Renderer rend;
     Color col;
     public int blockId;
+    public bool locked;
 
     //[SerializeField] 
     /*private bool isClickable = false;
@@ -30,12 +31,13 @@ public class Block : MonoBehaviour
     
 	
     [SerializeField]
-    public Block Init(Color col, string tag, int blockId)
+    public Block Init(Color col, string tag, bool locked)
     {
         this.rend.material.color = col;
         this.transform.tag = tag;
         //this.IsClickable = isClickable;
-        this.blockId = blockId;
+        //this.blockId = blockId;
+        this.locked = locked;
         //this.colorId
         return this;
     }

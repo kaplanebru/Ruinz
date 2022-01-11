@@ -11,6 +11,14 @@ public class Horizontal : ColumnSpawner
         posY = transform.position.y;
     }*/
 
+    private void Awake() 
+    {
+        var baseRenderer = column.transform.parent.GetComponent<MeshRenderer>();
+        if(baseRenderer != null)
+        {
+            baseRenderer.enabled = false;
+        }
+    }
     
     public Horizontal()
     {
@@ -24,6 +32,20 @@ public class Horizontal : ColumnSpawner
     {
         Vector3 pos = new Vector3(transform.position.x + i*startSize, transform.position.y, transform.position.z);
         return pos;
+    }
+
+    public override void SpawnColumn(int amount)
+    {
+        base.SpawnColumn(amount);
+        for(int j=0; j<amount; j++)
+        {
+            //columnList[j].tag = "locked";
+            columnList[j].GetComponent<Block>().locked = true;
+        }
+
+        
+
+        
     }
 
     public override void Tweening(GameObject brick, float ease, float endSize, int i)

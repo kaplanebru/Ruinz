@@ -50,7 +50,7 @@ public class ColumnSpawner : MonoBehaviour
         var brick = Object.Instantiate(blockPb, SpawnDirPos(i), transform.rotation);
         var brickS = brick.GetComponent<Block>();
 
-        brickS.Init(colorSet[i], "Untagged", i); 
+        brickS.Init(colorSet[i], "Untagged", false); 
         brick.transform.parent = column.transform;
 
         Tweening(brick, 2f, 1f, i);
