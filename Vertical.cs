@@ -14,6 +14,7 @@ public class Vertical : ColumnManager
         amount = 3;
         posY = posDir;
         baseSize = 1.5f;
+        startSize = 0.2f;
     }
 
     public override void SpawnColumn(int amount)

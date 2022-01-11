@@ -20,7 +20,7 @@ public class ColumnSpawner : MonoBehaviour
     protected float posDir;
     protected float baseSize;
     //float endSize = 1f;
-    float StartSize = 0.2f;
+    protected float startSize;
     //float baseSize = 1.5f;
     //float ease = 2f;
     
@@ -60,9 +60,9 @@ public class ColumnSpawner : MonoBehaviour
             
     }
 
-    Vector3 SpawnDirPos(int i)
+    public virtual Vector3 SpawnDirPos(int i)
     {
-        posDir = direction + i*StartSize; // + 1.1f
+        posDir = direction + i*startSize; // + 1.1f
         Vector3 pos = new Vector3(posX, posY, transform.position.z);
         return pos;
     }
@@ -70,7 +70,7 @@ public class ColumnSpawner : MonoBehaviour
     public virtual void Tweening(GameObject brick, float ease, float endSize, int i) //override edilebilir.
     {
         brick.transform.DOScaleY(endSize, ease);
-        brick.transform.DOMoveY(baseSize + i, ease);
+        brick.transform.DOMoveY(baseSize + transform.position.y + i, ease);
     }
 
     
