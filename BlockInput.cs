@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BlockManager : MonoBehaviour
+public class BlockInput : MonoBehaviour
 { 
     int counter = 0;
     float defaultGlow = 0.6f;
@@ -20,19 +20,24 @@ public class BlockManager : MonoBehaviour
     void Start() 
     {
         DOTween.Init();
+        StartCoroutine(InputRoutine());
         
     }
 
-    void Update()
+    IEnumerator InputRoutine()
     {
-
-        if(Input.GetMouseButtonDown(0))
+        while(true)
         {
-            StartCoroutine(Touched());
+            if(Input.GetMouseButtonDown(0))
+            {
+                //StartCoroutine(Touched());
+                Touched();
+            }
+            yield return null;
         }
     }
 
-    IEnumerator Touched()
+    void Touched()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -45,10 +50,10 @@ public class BlockManager : MonoBehaviour
                 counter++;
 
                 Glow(clicked[0], 0);
+                ReadyToCompare();
  
-                yield return new WaitUntil(ReadyToCompare);
+                //yield return new WaitUntil(ReadyToCompare);
                 //if more than 2 clear list.
-
             }
         }
     }

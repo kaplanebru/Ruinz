@@ -9,12 +9,12 @@ public class ColumnManager : ColumnSpawner
 
     private void OnEnable()
     {
-        BlockManager.OnTransposition += UpdateColumn;
+        BlockInput.OnTransposition += UpdateColumn;
     }
 
     private void OnDisable() 
     {
-        BlockManager.OnTransposition -= UpdateColumn;
+        BlockInput.OnTransposition -= UpdateColumn;
     }
 
     void UpdateColumn(GameObject firstBrick, Transform column2)
