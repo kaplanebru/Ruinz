@@ -19,10 +19,11 @@ public class ColumnSpawner : MonoBehaviour
     protected float posY;
     protected float posDir;
     protected float baseSize;
-    //float endSize = 1f;
+    protected float endSize = 1f;
     protected float startSize;
-    //float baseSize = 1.5f;
-    //float ease = 2f;
+    protected GameObject brick;
+    //protected float baseSize = 1.5f;
+    protected float ease = 2f;
     
     [SerializeField]
     Color[] colorSet;
@@ -37,7 +38,7 @@ public class ColumnSpawner : MonoBehaviour
         colorSet = new Color[amount];
     }
 
-    public virtual void SpawnColumn(int amount)
+    public void SpawnColumn(int amount)
     {
         for(int i=0; i<amount; i++)
         {
@@ -45,17 +46,16 @@ public class ColumnSpawner : MonoBehaviour
         }
     }
 
-    void SpawnBlocks(int i)
+    public virtual void SpawnBlocks(int i)
     {
-        var brick = Object.Instantiate(blockPb, SpawnDirPos(i), transform.rotation);
+        brick = Object.Instantiate(blockPb, SpawnDirPos(i), transform.rotation);
         var brickS = brick.GetComponent<Block>();
 
         brickS.Init(colorSet[i], "Untagged", false); 
         brick.transform.parent = column.transform;
 
-        Tweening(brick, 2f, 1f, i);
-
         columnList.Add(brick);
+        //Tweening(brick, 2f, 1f, i);
         //Debug.Log(columnType.colorSet[i]);
             
     }
@@ -67,11 +67,11 @@ public class ColumnSpawner : MonoBehaviour
         return pos;
     }
 
-    public virtual void Tweening(GameObject brick, float ease, float endSize, int i) //override edilebilir.
+    /*public virtual void Tweening(GameObject brick, float ease, float endSize, int i) 
     {
         brick.transform.DOScaleY(endSize, ease);
         brick.transform.DOMoveY(baseSize + transform.position.y + i, ease);
-    }
+    }*/
 
     
 

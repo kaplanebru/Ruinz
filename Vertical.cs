@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Vertical : ColumnManager
 {
@@ -17,10 +18,17 @@ public class Vertical : ColumnManager
         startSize = 0.2f;
     }
 
-    public override void SpawnColumn(int amount)
+    public override void SpawnBlocks(int i)
     {
-        base.SpawnColumn(amount);
+        base.SpawnBlocks(i);
         columnList[columnList.Count-1].tag = "clickable";
+        Tweening(i);
+    }
+
+    void Tweening(int i)
+    {
+        brick.transform.DOScaleY(endSize, ease);
+        brick.transform.DOMoveY(baseSize + transform.position.y + i, ease);
     }
 
 }

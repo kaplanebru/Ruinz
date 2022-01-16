@@ -5,11 +5,6 @@ using DG.Tweening;
 
 public class Horizontal : ColumnSpawner
 {
-    /*private void Awake() 
-    {
-        direction = transform.position.x;
-        posY = transform.position.y;
-    }*/
 
     private void Awake() 
     {
@@ -34,34 +29,39 @@ public class Horizontal : ColumnSpawner
         return pos;
     }
 
-    public override void SpawnColumn(int amount)
+
+
+    public override void SpawnBlocks(int i)
+    {
+        base.SpawnBlocks(i);
+        Tweening(i);
+    }
+
+    public virtual void Tweening(int i)
+    {
+        brick.transform.DOScaleY(endSize, ease);
+        brick.transform.DOMoveX(baseSize + transform.position.x + i, ease);
+    }
+
+    /*public override void Tweening(GameObject brick, float ease, float endSize, int i)
+    {
+        brick.transform.DOScaleY(endSize, ease);
+        brick.transform.DOMoveX(baseSize + transform.position.x + i, ease);
+    }*/
+
+    /*public override void SpawnColumn(int amount)
     {
         base.SpawnColumn(amount);
         for(int j=0; j<amount; j++)
         {
             //columnList[j].tag = "locked";
             columnList[j].GetComponent<Block>().locked = true;
-        }
-
-        
-
-        
-    }
-
-    public override void Tweening(GameObject brick, float ease, float endSize, int i)
-    {
-        brick.transform.DOScaleY(endSize, ease);
-        brick.transform.DOMoveX(baseSize + transform.position.x + i, ease);
-    }
+        }   
+    }*/
 
     //tag en tant que locked: si on hit sur locked, on va recevoir une message d'error.
 
     //on peut utiliser comme une ESCALIER
 
-    /*public override void Tweening(GameObject brick, float ease, float endSize, int i)
-    {
-        base.Tweening(brick, ease, endSize, i);
-        brick.transform.DOMoveX(baseSize + transform.position.x + i, ease);
-    }*/
 }
 
